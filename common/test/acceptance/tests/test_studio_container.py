@@ -60,9 +60,9 @@ class ContainerBase(UniqueCourseTest):
         self.auth_page = AutoAuthPage(
             self.browser,
             staff=False,
-            username=self.user.get('username', None),
-            email=self.user.get('email', None),
-            password=self.user.get('password', None)
+            username=self.user.get('username'),
+            email=self.user.get('email'),
+            password=self.user.get('password')
         )
         self.auth_page.visit()
 
@@ -74,7 +74,7 @@ class ContainerBase(UniqueCourseTest):
             self.course_info['display_name']
         )
 
-        self.user = course_fix.add_children(
+        course_fix.add_children(
             XBlockFixtureDesc('chapter', 'Test Section').add_children(
                 XBlockFixtureDesc('sequential', 'Test Subsection').add_children(
                     XBlockFixtureDesc('vertical', 'Test Unit').add_children(
@@ -93,6 +93,8 @@ class ContainerBase(UniqueCourseTest):
                 )
             )
         ).install()
+
+        self.user = course_fix.user
 
     def go_to_container_page(self, make_draft=False):
         unit = self.go_to_unit_page(make_draft)

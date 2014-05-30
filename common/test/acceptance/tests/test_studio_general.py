@@ -77,12 +77,14 @@ class CoursePagesTest(UniqueCourseTest):
         """
         super(CoursePagesTest, self).setUp()
 
-        user = CourseFixture(
+        course_fix = CourseFixture(
             self.course_info['org'],
             self.course_info['number'],
             self.course_info['run'],
             self.course_info['display_name']
-        ).install()
+        )
+
+        course_fix.install()
 
         # Log in as the user that created the course, and also make it
         # so that they are no longer global staff.
@@ -91,9 +93,9 @@ class CoursePagesTest(UniqueCourseTest):
         self.auth_page = AutoAuthPage(
             self.browser,
             staff=False,
-            username=user.get('username', None),
-            email=user.get('email', None),
-            password=user.get('password', None)
+            username=course_fix.user.get('username'),
+            email=course_fix.user.get('email'),
+            password=course_fix.user.get('password')
         )
 
         self.pages = [
@@ -127,7 +129,7 @@ class DiscussionPreviewTest(UniqueCourseTest):
     def setUp(self):
         super(DiscussionPreviewTest, self).setUp()
 
-        user = CourseFixture(**self.course_info).add_children(
+        course_fix = CourseFixture(**self.course_info).add_children(
             XBlockFixtureDesc("chapter", "Test Section").add_children(
                 XBlockFixtureDesc("sequential", "Test Subsection").add_children(
                     XBlockFixtureDesc("vertical", "Test Unit").add_children(
@@ -138,14 +140,16 @@ class DiscussionPreviewTest(UniqueCourseTest):
                     )
                 )
             )
-        ).install()
+        )
+
+        course_fix.install()
 
         self.auth_page = AutoAuthPage(
             self.browser,
             staff=False,
-            username=user.get('username', None),
-            email=user.get('email', None),
-            password=user.get('password', None)
+            username=course_fix.user.get('username'),
+            email=course_fix.user.get('email'),
+            password=course_fix.user.get('password')
         )
         self.auth_page.visit()
 

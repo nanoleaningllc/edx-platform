@@ -26,7 +26,8 @@ class StudioApiFixture(object):
     Base class for fixtures that use the Studio restful API.
     """
     def __init__(self):
-        self._user = {}
+        # Info about the auto-auth user used to create the course.
+        self.user = {}
 
     @lazy
     def session(self):
@@ -46,7 +47,7 @@ class StudioApiFixture(object):
                 '(?P<username>\S+)', '(?P<email>[^\)]+)', '(?P<password>\S+)', '(?P<user_id>\d+)'))
             user_matches = re.match(user_pattern, response.text)
             if user_matches:
-                self._user = user_matches.groupdict()
+                self.user = user_matches.groupdict()
 
             return session
 
@@ -241,9 +242,6 @@ class CourseFixture(StudioApiFixture):
         This is NOT an idempotent method; if the course already exists, this will
         raise a `CourseFixtureError`.  You should use unique course identifiers to avoid
         conflicts between tests.
-
-        Return a dict of information about the user that created the course for use
-        in the testcases.
         """
         self._create_course()
         self._install_course_updates()
@@ -251,8 +249,6 @@ class CourseFixture(StudioApiFixture):
         self._configure_course()
         self._upload_assets()
         self._create_xblock_children(self._course_location, self._children)
-
-        return self._user
 
     @property
     def _course_key(self):
