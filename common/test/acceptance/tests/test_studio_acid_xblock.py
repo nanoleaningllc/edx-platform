@@ -32,7 +32,6 @@ class XBlockAcidBase(WebAppTest):
             'display_name': 'Test Course ' + self.unique_id
         }
 
-        self.auth_page = AutoAuthPage(self.browser, staff=True)
         self.outline = CourseOutlinePage(
             self.browser,
             self.course_info['org'],
@@ -44,7 +43,15 @@ class XBlockAcidBase(WebAppTest):
 
         self.setup_fixtures()
 
+        self.auth_page = AutoAuthPage(
+            self.browser,
+            staff=False,
+            username=self.user.get('username', None),
+            email=self.user.get('email', None),
+            password=self.user.get('password', None)
+        )
         self.auth_page.visit()
+
 
     def validate_acid_block_preview(self, acid_block):
         """
@@ -102,7 +109,7 @@ class XBlockAcidNoChildTest(XBlockAcidBase):
             self.course_info['display_name']
         )
 
-        course_fix.add_children(
+        self.user = course_fix.add_children(
             XBlockFixtureDesc('chapter', 'Test Section').add_children(
                 XBlockFixtureDesc('sequential', 'Test Subsection').add_children(
                     XBlockFixtureDesc('vertical', 'Test Unit').add_children(
@@ -156,7 +163,7 @@ class XBlockAcidEmptyParentTest(XBlockAcidParentBase):
             self.course_info['display_name']
         )
 
-        course_fix.add_children(
+        self.user = course_fix.add_children(
             XBlockFixtureDesc('chapter', 'Test Section').add_children(
                 XBlockFixtureDesc('sequential', 'Test Subsection').add_children(
                     XBlockFixtureDesc('vertical', 'Test Unit').add_children(
@@ -183,7 +190,7 @@ class XBlockAcidChildTest(XBlockAcidParentBase):
             self.course_info['display_name']
         )
 
-        course_fix.add_children(
+        self.user = course_fix.add_children(
             XBlockFixtureDesc('chapter', 'Test Section').add_children(
                 XBlockFixtureDesc('sequential', 'Test Subsection').add_children(
                     XBlockFixtureDesc('vertical', 'Test Unit').add_children(

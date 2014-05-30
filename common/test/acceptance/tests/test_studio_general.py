@@ -77,14 +77,24 @@ class CoursePagesTest(UniqueCourseTest):
         """
         super(CoursePagesTest, self).setUp()
 
-        CourseFixture(
+        user = CourseFixture(
             self.course_info['org'],
             self.course_info['number'],
             self.course_info['run'],
             self.course_info['display_name']
         ).install()
 
-        self.auth_page = AutoAuthPage(self.browser, staff=True)
+        # Log in as the user that created the course, and also make it
+        # so that they are no longer global staff.
+        # They will have been given instructor access to the course
+        # and enrolled in it when they created it.
+        self.auth_page = AutoAuthPage(
+            self.browser,
+            staff=False,
+            username=user.get('username', None),
+            email=user.get('email', None),
+            password=user.get('password', None)
+        )
 
         self.pages = [
             clz(self.browser, self.course_info['org'], self.course_info['number'], self.course_info['run'])
@@ -116,7 +126,8 @@ class DiscussionPreviewTest(UniqueCourseTest):
 
     def setUp(self):
         super(DiscussionPreviewTest, self).setUp()
-        CourseFixture(**self.course_info).add_children(
+
+        user = CourseFixture(**self.course_info).add_children(
             XBlockFixtureDesc("chapter", "Test Section").add_children(
                 XBlockFixtureDesc("sequential", "Test Subsection").add_children(
                     XBlockFixtureDesc("vertical", "Test Unit").add_children(
@@ -129,7 +140,15 @@ class DiscussionPreviewTest(UniqueCourseTest):
             )
         ).install()
 
-        AutoAuthPage(self.browser, staff=True).visit()
+        self.auth_page = AutoAuthPage(
+            self.browser,
+            staff=False,
+            username=user.get('username', None),
+            email=user.get('email', None),
+            password=user.get('password', None)
+        )
+        self.auth_page.visit()
+
         cop = CourseOutlinePage(
             self.browser,
             self.course_info['org'],

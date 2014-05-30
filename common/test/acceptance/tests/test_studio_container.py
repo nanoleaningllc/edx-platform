@@ -25,7 +25,6 @@ class ContainerBase(UniqueCourseTest):
         # Ensure that the superclass sets up
         super(ContainerBase, self).setUp()
 
-        self.auth_page = AutoAuthPage(self.browser, staff=True)
         self.outline = CourseOutlinePage(
             self.browser,
             self.course_info['org'],
@@ -58,6 +57,13 @@ class ContainerBase(UniqueCourseTest):
 
         self.setup_fixtures()
 
+        self.auth_page = AutoAuthPage(
+            self.browser,
+            staff=False,
+            username=self.user.get('username', None),
+            email=self.user.get('email', None),
+            password=self.user.get('password', None)
+        )
         self.auth_page.visit()
 
     def setup_fixtures(self):
@@ -68,7 +74,7 @@ class ContainerBase(UniqueCourseTest):
             self.course_info['display_name']
         )
 
-        course_fix.add_children(
+        self.user = course_fix.add_children(
             XBlockFixtureDesc('chapter', 'Test Section').add_children(
                 XBlockFixtureDesc('sequential', 'Test Subsection').add_children(
                     XBlockFixtureDesc('vertical', 'Test Unit').add_children(
