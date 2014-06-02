@@ -46,6 +46,7 @@ Devstack includes the following edX components:
 * Discussion Forums
 * Open Response Assessor (ORA)
   
+Devstack also includes a demo edX course.
 
 **************************
 Knowledge Prerequisites
