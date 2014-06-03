@@ -31,7 +31,6 @@ starts follow.
 * Review the grading policy, and set a grace period for homework assignment
   due dates. See :ref:`Establish a Grading Policy`.
 
-
 **Review First Week Content**
 
 * Verify that all units are present and published. See :ref:`Units`.
@@ -128,9 +127,7 @@ To send an email message to course participants:
 
 #. View the live version of your course.
 
-#. Click **Instructor** > **Try New Beta Dashboard**.
-
-#. Click **Email**.
+#. Click **Instructor**, then click **Email**.
 
 #. Select who you want to send the message to from the **Send to** dropdown
    list. You can select:
@@ -139,31 +136,59 @@ To send an email message to course participants:
   * **Staff and Instructors**
   * **All (students, staff and instructors)**
 
-5. Enter a **Subject** for the message. A subject is required.
+4. Enter a **Subject** for the message. A subject is required.
 
 #. Enter the the text for the message. Messages can use HTML styling,
    including text formatting and links. The email message editor offers the
    same formatting options as the HTML component editor in Studio. See
    :ref:`Working with HTML Components`.
 
-#. Click **Send Email**.  The status of the message displays in the **Pending
-   Instructor Tasks** section of the page.
+#. Click **Send Email**.  The message is queued for processing. The workflow
+   state of the message displays in the **Pending Instructor Tasks** section of
+   the page.
+
+======================================================
+Message Workflow States
+======================================================
+
+When you click **Send Email** for a message, the server begins to process a bulk
+email task. The server assigns a series of different workflow states to the
+task.
+  
+.. image:: ../Images/Bulk_email_states.png
+       :alt: Flowchart of the possible states of a bulk email task 
+
+The workflow states for a bulk email task are:
+
+* Queuing: The bulk email task is created and queued for background processing.
+* Starting: Background processing is in progress to create emailing subtasks.
+* Progress: The emailing subtasks are in progress. 
+* Success: All emailing subtasks are complete. 
+* Failure: An error occurred and the bulk email task did not complete. 
+
+While the bulk email task is in progress, you can find out how far your task has
+gotten in the workflow by checking the **Pending Instructor Tasks**. See
+:ref:`Email_queuing`.
+
+When the bulk email task is complete, you can find its final state by checking
+the Email Task History report. See :ref:`Email Task History Report`.
+
+.. _Email_queuing:
 
 ======================================================
 Message Queueing
 ======================================================
 
-When you send a message, it is queued for processing as a bulk email task.
+After you send a message, a bulk email task is queued for processing.
 Multiple courses use the same queue to complete these tasks, so it can take
 some time for your message to be sent to all of its recipients. If your course
 is a MOOC, consider limiting the number of messages that you send to all
 course participants to no more than one per week.
 
-On the **Email** page, the **Pending Instructor Tasks** section shows the
-status of queued messages.
+On the **Email** page, the **Pending Instructor Tasks** section shows
+information about queued email tasks.
 
 .. image:: ../Images/Bulk_email_pending.png
-       :width: 800
        :alt: Information about an email message, including who submitted it and when, in tabular format
 
 You can perform other tasks on the Instructor Dashboard or navigate to other
@@ -195,9 +220,7 @@ To produce the Email Task History report:
 
 #. View the live version of your course.
 
-#. Click **Instructor** > **Try New Beta Dashboard**.
-
-#. Click **Email**. 
+#. Click **Instructor**, then click **Email**. 
 
 #. In the **Email Task History** section of the page, click **Show Email Task
    History**. A report like the following example displays on the Instructor
@@ -207,18 +230,19 @@ To produce the Email Task History report:
        :width: 800
        :alt: A tabular report with a row for each message sent and columns for requester, date and time submitted, duration, state, task status, and task progress.
 
-For messages with a State of "Success", the Task Progress can show an
+For messages with a **State** of Success, the **Task Progress** can show an
 informational message such as "Message successfully emailed for 13457 recipients
 (skipping 29) (out of 13486)". To interpret this message, note that:
 
 * The first number indicates the number of messages sent to the selected
   recipients.
+
 * The second number ("skipping") indicates the number of enrolled users who will
-  not be sent the message. This count includes students have opted out of
+  not be sent the message. This count includes students who have opted out of
   receiving course email messages and students who have not yet activated their
   user accounts.
+
 * The final number ("out of") indicates the number of users in the set of
   recipients you selected who were enrolled in the course when you sent the
   email message. For email messages addressed to a large number of users, the
-  number of enrolled students can change while the message is queued for
-  processing.
+  number of enrolled students can change while the message is being processed.
