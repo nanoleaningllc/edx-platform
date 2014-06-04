@@ -14,7 +14,7 @@ June, 2014
    * - Date
      - Change
    * - 06/04/14   
-     - Added a description of message workflow states to the :ref:`Launch`
+     - Added a description of email task workflow states to the :ref:`Launch`
        section.
    * - 06/03/14   
      - Added :ref:`gradebook` to the :ref:`Grades` section.
