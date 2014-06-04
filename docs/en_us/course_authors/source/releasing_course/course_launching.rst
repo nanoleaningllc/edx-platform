@@ -198,7 +198,7 @@ requester, the date and time it was submitted, the duration and state of the
 entire task, the task status, and the task progress.
 
 You can use this history to investigate questions relating to bulk email
-message that have been sent, such as:
+messages that have been sent, such as:
 
 * How frequently students are sent course-related email messages.
 * Whether a message was sent successfully.
