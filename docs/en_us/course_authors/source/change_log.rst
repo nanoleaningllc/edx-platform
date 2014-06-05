@@ -13,7 +13,7 @@ June, 2014
 
    * - Date
      - Change
-   * - 06/04/14   
+   * - 06/05/14   
      - Added a description of email task workflow states to the :ref:`Launch`
        section.
    * - 06/03/14   

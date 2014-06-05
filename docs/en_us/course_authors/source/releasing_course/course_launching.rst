@@ -106,14 +106,16 @@ recipients by selecting one of these predefined groups:
 * **All (students, staff and instructors)**, to communicate with currently
   enrolled students and the administrative team. 
 
-  Email messages are not sent to every enrolled student. Students can opt not to
-  receive email messages through the **Email Settings** link, which is present
-  on their dashboards for each course. Email messages are not sent to these
-  students. In addition, email is not sent to students who are enrolled in the
-  course but who have not yet activated their user accounts.
+  Email messages are not sent to enrolled students in these circumstances:
 
-When you use the bulk email feature, consider that messages **cannot be
-cancelled** after they are sent. Before you send a message to all course
+  * Students can opt not to receive email messages through the **Email
+    Settings** link, which is present on their dashboards for each course. Email
+    messages are not sent to these students.
+  * As a best practice, email is not sent to students who have not replied to an
+    account activation email message. 
+
+Before you use the bulk email feature, consider that messages **cannot be
+cancelled** after they are sent. If you plan to send a message to all course
 participants, be sure to review each draft carefully, and send the message to
 yourself first for thorough testing.
 
@@ -168,8 +170,9 @@ task.
 
 The workflow states for a bulk email task are:
 
-* Queuing: The bulk email task is created and queued for background processing.
-* Pending: The task is waiting for another task to complete.
+* Queuing: The bulk email task is created and being queued for background
+  processing.
+* Pending: The task is queued and is waiting to run.
 * Started: Background processing is in progress to create emailing subtasks.
 * Progress: The emailing subtasks are in progress. 
 * Success: All emailing subtasks are complete. Note that the bulk email task can
@@ -231,18 +234,17 @@ interpret this message, note that:
 * The first number ("recipients") indicates the number of messages sent to the
   selected recipients.
 
-* The second number ("skipping") indicates the number of enrolled users who were
-  not sent the message. This count is of students who have opted not to receive
-  course email messages.
+* The second number ("skipping") indicates the number of enrolled and activated
+  users who were not sent the message. This count is of students who have opted
+  not to receive course email messages.
 
 * The final number ("out of") indicates the number of users in the set of
   recipients you selected who were enrolled in the course (and had activated
   their user accounts) when you sent the email message. 
 
-  For email messages addressed to a large number of users, the number of
-  enrolled and activated students can change while the message is being
-  processed. As a result, the **Total number of enrollees** shown on the
-  **Course Info** page may not be the same as this number.
+  Note that the **Total number of enrollees** shown on the **Course Info** page
+  includes all currently enrolled students, regardless of account activation
+  status, and as a result can be different than this number.
 
 If the "recipients" and "out of" numbers are the same, the message reads
 "Message successfully emailed for 13457 recipients" instead.
