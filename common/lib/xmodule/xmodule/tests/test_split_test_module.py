@@ -159,9 +159,9 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
     Unit tests for how split test interacts with Studio.
     """
 
-    def test_render_studio_view(self):
+    def test_render_author_view(self):
         """
-        Test the rendering of the Studio view.
+        Test the rendering of the Studio author view.
         """
 
         # The split_test module should render both its groups when it is the root
@@ -172,7 +172,7 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
             'reorderable_items': reorderable_items,
             'root_xblock': self.split_test_module,
         }
-        html = self.module_system.render(self.split_test_module, 'student_view', context).content
+        html = self.module_system.render(self.split_test_module, 'author_view', context).content
         self.assertIn('HTML FOR GROUP 0', html)
         self.assertIn('HTML FOR GROUP 1', html)
 
@@ -184,7 +184,7 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
             'reorderable_items': reorderable_items,
             'root_xblock': self.course_sequence,
         }
-        html = self.module_system.render(self.split_test_module, 'student_view', context).content
+        html = self.module_system.render(self.split_test_module, 'author_view', context).content
         self.assertNotIn('HTML FOR GROUP 0', html)
         self.assertNotIn('HTML FOR GROUP 1', html)
 
@@ -339,8 +339,8 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
         ]
         verify_validation_message(self.split_test_module,
                                   u"This content experiment is missing groups that are defined in "
-                                  u"the current configuration."
-                                  u" You can press the 'Fix Me' button to have the missing groups created.",
+                                  u"the current configuration. "
+                                  u"You can press the 'Create Missing Groups' button to create them.",
                                   ValidationMessageType.error)
 
         # Verify the message for a split test with children that are not associated with any group
